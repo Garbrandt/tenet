@@ -1,0 +1,1 @@
+!function(n){"use strict";function t(){this.$body=n("body")}t.prototype.init=function(){n(".task-list-items").each(function(){Sortable.create(n(this)[0],{group:"shared",animation:150})})},n.KanbanBoard=new t,n.KanbanBoard.Constructor=t}(window.jQuery),function(){"use strict";window.jQuery.KanbanBoard.init()}();

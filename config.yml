@@ -1,0 +1,14 @@
+server:
+  theme: demo
+  data: demo
+  username: demo
+  password: demo123
+  port: 80
+  favicon: D
+  domain: demo.com
+sync:
+  open: false
+  repo: xxxxxxxx
+  owner: xxxxxxxx
+  token: xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+cdn: https://cdn.jsdelivr.net/gh/aipacino/cdn@main/

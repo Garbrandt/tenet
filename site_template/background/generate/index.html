@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Meta -->
+    <meta name="description" content="Responsive Bootstrap4 Dashboard Template">
+    <meta name="author" content="ParkerThemes">
+    <link rel="shortcut icon" href="img/fav.png"/>
+
+    <!-- Title -->
+    <title>标记生成器v1.00</title>
+
+    <!-- *************
+        ************ Common Css Files *************
+    ************ -->
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/material.css">
+    <!-- Icomoon Font Icons css -->
+    <link rel="stylesheet" href="fonts/style.css">
+    <!-- Main css -->
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- *************
+        ************ Vendor Css Files *************
+    ************ -->
+    <style>
+        .text-wrapper {
+            word-break: break-all;
+            word-wrap: break-word;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<!-- Page wrapper start -->
+<div class="page-wrapper" id="app">
+    <vue-snotify></vue-snotify>
+
+    <!-- Page content start  -->
+    <div class="page-content">
+
+        <!-- Main container start -->
+        <div class="main-container">
+            <!-- Row start -->
+            <div class="row gutters">
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row gutters">
+                                <div v-if="mark.mark_type.show"
+                                     class="col-xl-12 col-lglg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="form-group">
+                                        <label>标记类型</label>
+
+                                        <!-- Inline Checkbox example -->
+                                        <div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" id="blog" value="blog"
+                                                       v-model="mark.mark_type.value">
+                                                <label class="form-check-label" for="blog">博文</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div v-if="mark.backend_section_label.show"
+                                     class="col-xl-6 col-lglg-6 col-md-6 col-sm-6 col-6">
+                                    <div class="form-group">
+                                        <label for="section_label">菜单名称</label>
+                                        <input type="text" class="form-control"
+                                               v-model="mark.backend_section_label.value"
+                                               placeholder="公司资讯">
+                                    </div>
+                                </div>
+                                <div v-if="mark.backend_env_label.show"
+                                     class="col-xl-6 col-lglg-6 col-md-6 col-sm-6 col-6">
+                                    <div class="form-group">
+                                        <label for="env_label">变量名称</label>
+                                        <input type="text" class="form-control"
+                                               v-model="mark.backend_env_label.value"
+                                               placeholder="业内动态">
+                                    </div>
+                                </div>
+                                <div v-if="mark.mark_title.show" class="col-xl-6 col-lglg-6 col-md-6 col-sm-6 col-6">
+                                    <div class="form-group">
+                                        <label>标题</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <input type="checkbox" v-model="mark.mark_title.check"
+                                                           aria-label="Checkbox for following text input">
+                                                </div>
+                                            </div>
+                                            <input type="text" class="form-control" v-model="mark.mark_title.value"
+                                                   aria-label="Text input with checkbox">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div v-if="mark.mark_abstract.show" class="col-xl-6 col-lglg-6 col-md-6 col-sm-6 col-6">
+                                    <div class="form-group">
+                                        <label>内容简介</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <input type="checkbox" v-model="mark.mark_abstract.check"
+                                                           aria-label="Checkbox for following text input">
+                                                </div>
+                                            </div>
+                                            <input type="text" class="form-control" v-model="mark.mark_abstract.value"
+                                                   aria-label="Text input with checkbox">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div v-if="mark.mark_body.show" class="col-xl-6 col-lglg-6 col-md-6 col-sm-6 col-6">
+                                    <div class="form-group">
+                                        <label>内容详情</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <input type="checkbox" v-model="mark.mark_body.check"
+                                                           aria-label="Checkbox for following text input">
+                                                </div>
+                                            </div>
+                                            <input type="text" class="form-control" v-model="mark.mark_body.value"
+                                                   aria-label="Text input with checkbox">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div v-if="mark.mark_source_url.show"
+                                     class="col-xl-6 col-lglg-6 col-md-6 col-sm-6 col-6">
+                                    <div class="form-group">
+                                        <label>详情页</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <input type="checkbox" v-model="mark.mark_source_url.check"
+                                                           aria-label="Checkbox for following text input">
+                                                </div>
+                                            </div>
+                                            <input type="text" class="form-control"
+                                                   v-model="mark.mark_source_url.value"
+                                                   aria-label="Text input with checkbox">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div v-if="mark.mark_list_url.show"
+                                     class="col-xl-6 col-lglg-6 col-md-6 col-sm-6 col-6">
+                                    <div class="form-group">
+                                        <label>列表页</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <input type="checkbox" v-model="mark.mark_list_url.check"
+                                                           aria-label="Checkbox for following text input">
+                                                </div>
+                                            </div>
+                                            <input type="text" class="form-control"
+                                                   v-model="mark.mark_list_url.value"
+                                                   aria-label="Text input with checkbox">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div v-if="mark.mark_content_id.show"
+                                     class="col-xl-6 col-lglg-6 col-md-6 col-sm-6 col-6">
+                                    <div class="form-group">
+                                        <label>文章id</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <input type="checkbox" v-model="mark.mark_content_id.check"
+                                                           aria-label="Checkbox for following text input">
+                                                </div>
+                                            </div>
+                                            <input type="text" class="form-control" v-model="mark.mark_content_id.value"
+                                                   aria-label="Text input with checkbox">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div v-if="mark.mark_created_at.show"
+                                     class="col-xl-6 col-lglg-6 col-md-6 col-sm-6 col-6">
+                                    <div class="form-group">
+                                        <label>发布时间</label>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                    <input type="checkbox" v-model="mark.mark_created_at.check"
+                                                           aria-label="Checkbox for following text input">
+                                                </div>
+                                            </div>
+                                            <input type="text" class="form-control"
+                                                   v-model="mark.mark_created_at.value"
+                                                   aria-label="Text input with checkbox">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row gutters">
+                                <div v-if="mark.multiple.show"
+                                     class="col-xl-4 col-lglg-4 col-md-4 col-sm-4 col-4">
+                                    <div class="form-group">
+                                        <label>多数据标记</label>
+
+                                        <!-- Inline Checkbox example -->
+                                        <div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" id="false" value="false"
+                                                       v-model="mark.multiple.value">
+                                                <label class="form-check-label" for="blog">否</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" id="true" value="true"
+                                                       v-model="mark.multiple.value">
+                                                <label class="form-check-label" for="input">是</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div v-if="mark.mark_show_on_dashboard.show"
+                                     class="col-xl-4 col-lglg-4 col-md-4 col-sm-4 col-4">
+                                    <div class="form-group">
+                                        <label>是否后台显示</label>
+
+                                        <!-- Inline Checkbox example -->
+                                        <div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" id="false" value="false"
+                                                       v-model="mark.mark_show_on_dashboard.value">
+                                                <label class="form-check-label" for="blog">否</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" id="true" value="true"
+                                                       v-model="mark.mark_show_on_dashboard.value">
+                                                <label class="form-check-label" for="input">是</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row gutters">
+                                <div v-if="mark.mark_page.show" class="col-xl-6 col-lglg-6 col-md-6 col-sm-6 col-6">
+                                    <div class="form-group">
+                                        <label for="section_label">当前页</label>
+                                        <input type="text" class="form-control"
+                                               v-model="mark.mark_page.value"
+                                               placeholder="">
+                                    </div>
+                                </div>
+                                <div v-if="mark.mark_page_size.show"
+                                     class="col-xl-6 col-lglg-6 col-md-6 col-sm-6 col-6">
+                                    <div class="form-group">
+                                        <label for="env_label">每页内容数量</label>
+                                        <input type="text" class="form-control"
+                                               v-model="mark.mark_page_size.value"
+                                               placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row gutters">
+                                <!-- Buttons -->
+                                <div v-if="expand.backend_section_label.show"
+                                     class="col-xl-2 col-lglg-2 col-md-2 col-sm-2 col-2">
+                                    <label>关系类型</label>
+                                    <div class="form-group">
+                                        <div class="align-content-center">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" id="tags" value="tags"
+                                                       v-model="expand.connection_type.value">
+                                                <label class="form-check-label" for="tags">标签</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" id="thumbnails"
+                                                       value="thumbnails"
+                                                       v-model="expand.connection_type.value">
+                                                <label class="form-check-label" for="thumbnails">缩略图</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div v-if="expand.backend_section_label.show"
+                                     class="col-xl-4 col-lglg-4 col-md-4 col-sm-4 col-4">
+                                    <div class="form-group">
+                                        <label for="section_label">菜单名称</label>
+                                        <input type="text" class="form-control"
+                                               v-model="expand.backend_section_label.value"
+                                               placeholder="公司资讯">
+                                    </div>
+                                </div>
+                                <div v-if="expand.backend_env_label.show"
+                                     class="col-xl-6 col-lglg-6 col-md-6 col-sm-6 col-6">
+                                    <div class="form-group">
+                                        <label for="env_label">变量名称</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control mb-2"
+                                                   v-model="expand.backend_env_label.value"
+                                                   placeholder="业内动态">
+                                            <button class="mb-2 btn btn-primary" @click='addNewExpand'>添加</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div v-for="(item,index) in expand.keys" class="row gutters">
+                                <div v-if="item.backend_section_label.show"
+                                     class="col-xl-6 col-lglg-6 col-md-6 col-sm-6 col-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control"
+                                               v-model="item.backend_section_label.value"
+                                               placeholder="公司资讯">
+                                    </div>
+                                </div>
+                                <div v-if="item.backend_env_label.show"
+                                     class="col-xl-6 col-lglg-6 col-md-6 col-sm-6 col-6">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control mb-2"
+                                                   v-model="item.backend_env_label.value"
+                                                   placeholder="业内动态">
+                                            <button class="mb-2 btn btn btn-secondary"
+                                                    v-on:click='expand.keys.splice(index, 1)'>删除
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row start -->
+                    <div class="card" v-if="data_re.content.show">
+                        <div class="card-body">
+                            <label>消息标记</label>
+                            <div class="row gutters">
+                                <textarea class="form-control"
+                                          v-clipboard:copy="data_re.content.value"
+                                          v-clipboard:success="onCopy"
+                                          v-clipboard:error="onError"
+                                          v-model="data_re.content.value">{{ data_re.content.value }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Row end -->
+
+                    <!-- Row start -->
+                    <div class="card" v-if="mark.mark_source_url.show">
+                        <div class="card-body">
+                            <label>详情页链接</label>
+                            <div class="row gutters">
+                                <textarea class="form-control"
+                                          v-clipboard:copy="data_re.link.value"
+                                          v-clipboard:success="onCopy"
+                                          v-clipboard:error="onError"
+                                          v-model="data_re.link.value">{{ data_re.link.value }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Row end -->
+
+                    <!-- Row start -->
+                    <div class="card" v-if="data_re.list.show">
+                        <div class="card-body">
+                            <label>列表页链接</label>
+                            <div class="row gutters">
+                                <textarea class="form-control"
+                                          v-clipboard:copy="data_re.list.value"
+                                          v-clipboard:success="onCopy"
+                                          v-clipboard:error="onError"
+                                          v-model="data_re.list.value">{{ data_re.list.value }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Row end -->
+                    <div class="card" v-for="(item,index) in expand.keys">
+                        <div class="card-body">
+                            <div class="row gutters">
+                                <div class="form-group">
+                                    <input type="text" class="form-control"
+                                           v-model="item.connection_type.value"
+                                           placeholder="公司资讯">
+                                </div>
+
+                                <textarea class="form-control"
+                                          v-clipboard:copy="item.data_re"
+                                          v-clipboard:success="onCopy"
+                                          v-clipboard:error="onError"
+                                          v-model="item.data_re">{{ item.data_re }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Row end -->
+
+        </div>
+        <!-- Main container end -->
+
+    </div>
+    <!-- Page content end -->
+
+</div>
+<!-- Page wrapper end -->
+
+<!--**************************
+    **************************
+        **************************
+                    Required JavaScript Files
+        **************************
+    **************************
+**************************-->
+<!-- Required jQuery first, then Bootstrap Bundle JS -->
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src='js/vue.min.js'></script>
+<script type="text/javascript" src="js/pinyin_dict_notone.js"></script>
+<script type="text/javascript" src="js/pinyinUtil.js"></script>
+<script type="text/javascript" src="js/vue-snotify.min.js"></script>
+<script type="text/javascript" src="js/vue-clipboard.min.js"></script>
+
+<!-- *************
+    ************ Vendor Js Files *************
+************* -->
+<!-- Main JS -->
+<script src="script.js"></script>
+
+</body>
+</html>

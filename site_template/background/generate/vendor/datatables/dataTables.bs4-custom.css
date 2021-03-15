@@ -1,0 +1,62 @@
+table.dataTable tbody tr.selected {
+	background-color: #2e3d5f;
+	color: #ffffff;
+}
+table.dataTable.order-column tbody tr>.sorting_1, table.dataTable.order-column tbody tr>.sorting_2, table.dataTable.order-column tbody tr>.sorting_3, table.dataTable.display tbody tr>.sorting_1, table.dataTable.display tbody tr>.sorting_2, table.dataTable.display tbody tr>.sorting_3 {
+	background-color: #89b5d7;
+}
+table.dataTable.row-border tbody th, table.dataTable.row-border tbody td, table.dataTable.display tbody th, table.dataTable.display tbody td {
+	border-top: 1px solid #ddd;
+}
+td.highlight {
+	background-color: #2e3d5f !important;
+}
+
+/* Fixed Header */
+table.dataTable.fixedHeader-floating,
+table.dataTable.fixedHeader-locked {
+	background-color: white;
+	margin-top: 0 !important;
+	margin-bottom: 0 !important
+}
+table.dataTable.fixedHeader-floating {
+	position: fixed !important
+}
+table.dataTable.fixedHeader-locked{
+	position: absolute !important
+}
+@media print{
+	table.fixedHeader-floating {
+		display: none;
+	}
+}
+div.dataTables_wrapper div.dataTables_paginate {
+	margin: 10px 0 0 0;
+	padding: 0 0 10px 0px;
+}
+div.dataTables_wrapper div.dataTables_info {
+	color: #5a8dee;
+	font-size: .775rem;
+	margin: 10px 0 0 0;
+	padding: 0 0 15px 0;
+}
+table.dataTable thead .sorting:before, table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting_asc_disabled:before, table.dataTable thead .sorting_desc_disabled:before {
+	color: #ffffff;
+}
+table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_desc_disabled:after {
+	color: #ffffff;
+}
+
+.dataTable .btn-group-sm > .btn, .btn-sm {
+	padding: .1rem .3rem;
+	font-size: .75rem;
+}
+.dataTables_length {
+	padding: 10px 0 0 0;
+}
+div.dataTables_wrapper div.dataTables_filter {
+	padding: 10px 0 5px 0;
+}
+div.dt-buttons {
+	padding: 10px 0 0 0;
+}

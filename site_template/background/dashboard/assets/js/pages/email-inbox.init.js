@@ -1,0 +1,1 @@
+$(document).ready(function(){$(".chat-close").click(function(c){return c.preventDefault(),$(".chatbox").css({opacity:"0"}).hide(),!1}),$(".chat").click(function(c){return c.preventDefault(),$(".chatbox").css({opacity:"0",display:"block"}).show().animate({opacity:1}),!1})});

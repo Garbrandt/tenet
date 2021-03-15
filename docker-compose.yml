@@ -1,0 +1,9 @@
+version: '3'
+services:
+  demo:
+    container_name: demo
+    build: .
+    ports:
+      - 80:80
+    volumes:
+      - ./site_template:/go/release/site_template

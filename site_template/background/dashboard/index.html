@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>TENET - Admin &&& dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="tenet" name="description"/>
+    <meta content="tenet" name="author"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+    <!-- App css -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="assets/css/icons.min.css" rel="stylesheet" type="text/css"/>
+    <link href="assets/css/app.min.css" rel="stylesheet" type="text/css"/>
+    <link href="assets/css/material.css" rel="stylesheet" type="text/css"/>
+
+    <!-- Include the Quill library -->
+    <script src="assets/libs/quill/quill.js"></script>
+
+    <!-- Quill JS Vue -->
+    <script src="assets/libs/quill/vue-quill-editor.js"></script>
+
+    <!-- Include stylesheet -->
+    <link href="assets/libs/quill/quill.core.css" rel="stylesheet">
+    <link href="assets/libs/quill/quill.snow.css" rel="stylesheet">
+    <link href="assets/libs/quill/quill.bubble.css" rel="stylesheet">
+
+    <!-- filePond stylesheet -->
+    <link rel="stylesheet" href="assets/libs/filePond/filepond.min.css">
+    <link rel="stylesheet" href="assets/libs/filePond/filepond-plugin-image-preview.min.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        span {
+            display: inline-block;
+        }
+
+
+    </style>
+    <script src="assets/js/vue-multiselect.min.js"></script>
+    <link rel="stylesheet" href="assets/css/vue-multiselect.min.css">
+
+</head>
+
+<body>
+<div id="main">
+    <div id="wrapper">
+        <vue-snotify></vue-snotify>
+        <div class="left-side-menu">
+            <div class="sidebar-content">
+                <div id="sidebar-menu" class="slimscroll-menu">
+                    <ul class="metismenu" id="menu-bar">
+                        <li class="menu-title"></li>
+                        <li v-for="(value,index) in template.navigations">
+                            <a href="#" @click="clickedNav(value.Section)"><i
+                                        data-feather="calendar"></i>{{ value.SectionLabel }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="content-page">
+            <div class="content">
+                <div class="col-xl-12" v-for="(forms,key) in template.forms">
+                    <div v-if="key === section" v-for="(form,index) in forms" class="card">
+                        <div class="card-body" v-if="!isEdit && form.mark.multiple != false">
+                            <div class="table-responsive">
+                                <table class="table mb-0">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">id</th>
+                                        <th scope="col">标题</th>
+                                        <th scope="col">摘要</th>
+                                        <th scope="col">日期</th>
+                                        <th scope="col">
+                                            编辑内容
+                                        </th>
+                                        <th scope="col">
+                                            删除内容
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="(row,row_index) in template.rows[form.mark.key]">
+                                        <th scope="row">{{row.content.id}}</th>
+                                        <td>{{row.content.title}}</td>
+                                        <td>{{row.content.abstract}}</td>
+                                        <td>{{row.content.updated_at}}</td>
+                                        <td>
+                                            <div class="btn-group d-none d-sm-inline-block">
+                                                <button @click="()=>editRow(row_index,index,form.mark.mark_section,form.mark.mark_env)"
+                                                        type="button"
+                                                        class="btn btn-soft-info btn-sm">编辑
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group d-none d-sm-inline-block">
+                                                <button @click="()=>deleteRow(row.content.id)"
+                                                        type="button"
+                                                        class="btn btn-soft-danger btn-sm">删除
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="card" v-if="form.mark.multiple == true && !isEdit">
+                                <button type="button" class="btn btn-soft-success btn" @click="()=>New()">新建
+                                </button>
+                            </div>
+                        </div>
+                        <div v-if="isEdit || form.mark.multiple == false" class="card-body">
+                            <h4 v-if="form.mark.backend_env_label"
+                                class="mb-3 header-title mt-0">{{form.mark.backend_env_label}}</h4>
+                            <div class="form-group" v-if="form.mark.mark_title">
+                                <input type="text" class="form-control" v-model="form.submit.content.title"
+                                       aria-describedby="" placeholder="请输入内容">
+                            </div>
+                            <div class="form-group" v-if="form.mark.mark_abstract">
+                                <input type="text" class="form-control"
+                                       v-model="form.submit.content.abstract"
+                                       aria-describedby="" placeholder="请输入内容">
+                            </div>
+                            <div class="form-group" v-if="form.mark.mark_source_url">
+                                <input type="text" class="form-control"
+                                       v-model="form.submit.content.source_url"
+                                       aria-describedby="" placeholder="请输入地址">
+                            </div>
+                            <div class="row gutters"
+                                 v-for="(connection,connections_index) in form.mark.relations">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+                                     v-if="connection.mark_type == 'tags'">
+                                    <div class="card">
+                                        <multiselect
+                                                v-model="form.submit.connections[connection.key]"
+                                                select-label="回车选择!"
+                                                placeholder="下拉框选择"
+                                                label="title" track-by="id"
+                                                @remove="deleteOption"
+                                                :options="getAllSelectOptionsBy(connection.mark_section + '/' + connection.mark_env)"
+                                                :multiple="true"
+                                                :taggable="true"
+                                        ></multiselect>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12"
+                                     v-if="connection.mark_type == 'thumbnails'">
+                                    <!-- Card start -->
+                                    <div class="card">
+                                        <file-pond :imagePreviewMaxHeight="50"
+                                                   credits=""
+                                                   label-idle="拖拽或者复制文件上传..." allow-multiple="true"
+                                                   :server="server(connection.mark_section + '/' + connection.mark_env,index,connection.key,connection.key)"
+                                                   instantUpload="false"/>
+                                        </file-pond>
+                                        <div class="card-body">
+                                            <div class="row gutters" v-if="modelShow">
+                                                <div v-for="(file,index) in getContentThumbnailBy(form.submit.content.id, connection.mark_section + '/' + connection.mark_env)"
+                                                     class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
+                                                    <img class="thumbs"
+                                                         :src="getImgUrl(file.source)">
+                                                    <button class="btn btn-danger"
+                                                            v-on:click="deleteContentAttachments(file.id, form.submit.content.id)">
+                                                        删除
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Card end -->
+                                </div>
+                            </div>
+                            <div class="form-group" v-if="form.mark.mark_body">
+                                <quill-editor class="editor"
+                                              v-model="form.submit.content.body"
+                                              ref="myQuillEditor"
+                                              @blur="onEditorBlur"
+                                              @focus="onEditorFocus"
+                                              @ready="onEditorReady">
+                                </quill-editor>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="footer text-right">
+                <div class="content">
+                    <div class="card-body">
+                        <div class="col-xl-12">
+                            <button @click="()=>Save()"
+                                    type="button"
+                                    class="btn btn-soft-primary btn">保存修改
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Vendor js -->
+<script src="assets/js/vendor.min.js"></script>
+<!-- App js -->
+<script src="assets/js/app.min.js"></script>
+<script src="assets/js/vue.min.js"></script>
+<script type="text/javascript" src="assets/js/vue-snotify.min.js"></script>
+<script src="assets/js/axios.min.js"></script>
+<script src="assets/libs/filePond/filepond-plugin-image-preview.js"></script>
+<script src="assets/libs/filePond/filepond.js"></script>
+
+<script src="assets/libs/filePond/vue-filepond.min.js"></script>
+
+<script>
+    Vue.use(VueQuillEditor, {
+        placeholder: '请输入内容',
+    });
+    new Vue({
+        el: '#wrapper',
+        data: {
+            isEdit: false,
+            template: {},
+            section: "",
+            modelShow: true,
+            server: function (key, index, connection_key) {
+                return {
+                    url: "/api",
+                    process: {
+                        url: "/attachments/" + key,
+                        onload: (response) => {
+                            let data = JSON.parse(response)
+                            this.template.forms[this.section][index].submit.connections = this.template.forms[this.section][index].submit.connections || {}
+                            this.template.forms[this.section][index].submit.connections[connection_key] = this.template.forms[this.section][index].submit.connections[connection_key] || []
+                            this.template.forms[this.section][index].submit.connections[connection_key].push(data)
+                            return data.id
+                        }
+                    },
+                    revert: {
+                        url: '/delete/'
+                    }
+                }
+            },
+            getAllSelectOptionsBy: function (id) {
+                try {
+                    if (id === 0) {
+                        return []
+                    } else {
+                        let xhr = new XMLHttpRequest();
+                        xhr.open("GET", "/api/options/" + id, false);
+                        xhr.send();
+                        let data = xhr.responseText;
+                        return JSON.parse(data)
+                    }
+                } catch (e) {
+                    return []
+                }
+            },
+            deleteOption: function (option, id) {
+                console.log(option, "删除的选项为", id)
+            },
+            getContentConnectionsBy: function (id) {
+                if (id === 0) {
+                    return []
+                } else {
+                    let xhr = new XMLHttpRequest();
+                    xhr.open("GET", "/api/content/" + id + "/connections", false);
+                    xhr.send();
+                    let data = xhr.responseText;
+                    return JSON.parse(data)
+                }
+            },
+            getContentThumbnailBy: function (id, key) {
+                if (id === 0) {
+                    return []
+                } else {
+                    let xhr = new XMLHttpRequest();
+                    xhr.open("GET", "/api/content/" + id + "/" + key + "/attachments", false);
+                    xhr.send(key);
+                    let data = xhr.responseText;
+                    return JSON.parse(data)
+                }
+            },
+        },
+        components: {
+            "FilePond": vueFilePond.default(FilePondPluginImagePreview),
+            "Multiselect": window.VueMultiselect.default,
+        },
+        created() {
+            this.Dashboard()
+        },
+        mounted() {
+        },
+        methods: {
+            editRow(content_index, env_index, mark_section, mark_env) {
+                this.template.forms[mark_section][env_index]['submit']['connections'] = this.template['rows'][mark_section + "#" + mark_env][content_index]['connections']
+                Object.keys(this.template['rows'][mark_section + "#" + mark_env][content_index]['content']).forEach(index => {
+                    let value = this.template['rows'][mark_section + "#" + mark_env][content_index]['content'][index]
+                    if (value && value !== "" && value !== null) {
+                        this.template.forms[mark_section][env_index]['submit']['content'][index] = value
+                    }
+                })
+
+                this.isEdit = true
+            },
+            deleteRow(key) {
+                let link = document.location.protocol + "//" + document.location.host
+                axios.delete(link + `/api/contents/${key}`).then(res => {
+                    this.$snotify.success('保存成功');
+                    this.Dashboard()
+                }).catch(err => {
+                    console.log(err)
+                    // window.location = document.location.protocol + "//" + document.location.host + '/dashboard/login.html'
+                })
+            },
+            getImgUrl(pet) {
+                return pet
+            },
+            deleteContentAttachments(content_id, connection_id) {
+                let xhr = new XMLHttpRequest();
+                xhr.open("DELETE", "/api/attachments/", false);
+                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                xhr.send(JSON.stringify({"content_id": content_id, "connection_id": connection_id}));
+                let data = xhr.responseText;
+                this.modelShow = !this.modelShow;
+                this.modelShow = !this.modelShow;
+                let jsonResponse = JSON.parse(data);
+            },
+            onEditorBlur() {
+            },
+            onEditorFocus() {
+            },
+            onEditorReady() {
+            },
+            Dashboard() {
+                axios.get("/api/dashboard", JSON.stringify({})).then((response) => {
+                    this.template = response.data.data
+                    let rows = this.template['rows']
+
+                    let vue = this.template
+                    Object.keys(this.template['forms']).forEach(key => {
+                        this.template['forms'][key].forEach(function (item, index, array) {
+                            try {
+                                rows[item['mark']['key']].forEach(function (row, row_index, array) {
+                                    if (row['content']['key'] === item['mark']['key'] && item['mark']['multiple'] === false) {
+                                        vue['forms'][key][index]['submit'] = row
+                                    }
+                                })
+                            } catch (e) {
+                            }
+                        });
+                    })
+                }).catch(function (error) {
+                    window.location = document.location.protocol + "//" + document.location.host + '/dashboard/login.html'
+                });
+                this.$snotify.success('数据获取成功');
+            },
+            clickedNav(section) {
+                this.isEdit = false
+                this.$snotify.success('切换');
+                this.section = section
+            },
+            New() {
+                this.isEdit = true
+            },
+            Save() {
+                axios.post("/api/contents", JSON.stringify(
+                    this.template.forms[this.section]
+                )).then((response) => {
+                    this.isEdit = false
+                    this.Dashboard()
+                    this.$snotify.success('保存成功');
+                }).catch(function (error) {
+                });
+            },
+        },
+    })
+</script>
+</body>
+</html>
