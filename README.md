@@ -11,6 +11,6 @@
 这个系统开发出来，不是为了盈利或者其他的，就是单纯想让各位快速接单子，赢取白富美，走向人生巅峰。
 也希望小伙伴也可以加入开发这个团队中来。
 
-[![使用教程，初步预览](https://img.youtube.com/vi/9DpPJcnlNcU/0.jpg)](https://www.youtube.com/watch?v=9DpPJcnlNcU)
+[![使用教程，初步预览](https://img.youtube.com/vi/lzHh5au4D4E/0.jpg)](https://www.youtube.com/watch?v=lzHh5au4D4E)
 
 [![使用教程，初步预览](https://m.ykimg.com/054F0601605B6DAF0000013CF5009060)](https://v.youku.com/v_show/id_XNTEyNjg5MjcwMA==.html)
