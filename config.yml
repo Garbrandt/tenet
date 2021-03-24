@@ -1,5 +1,5 @@
 server:
-  theme: demo
+  theme: Apollo
   data: demo
   username: demo
   password: demo123
