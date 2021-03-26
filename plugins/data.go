@@ -99,8 +99,8 @@ func getContentFrom(mark model.Mark) []model.Content {
 		utlis.ReverseAny(contents)
 	}()
 
-	page := 1
-	pageSize := 10
+	page := mark.Page
+	pageSize := mark.PageSize
 
 	switch mark.RealID {
 	case 0:
