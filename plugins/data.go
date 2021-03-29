@@ -63,9 +63,9 @@ func recursionGetDataUseMarkInfo(node *html.Node, link string, back *string) {
 				for _, content := range contents {
 					divContent := b.String()
 
-					for index, relationMark := range mark.Relations {
-						log.Println(index, relationMark, content.ID)
-						ReplaceHtmlContentFormMark(divContent, content.ID, relationMark)
+					for _, relationMark := range mark.Relations {
+						// 分析内嵌内容
+						divContent = ReplaceHtmlContentFormMark(divContent, content.ID, relationMark)
 					}
 
 					item := deleteDataReMark(divContent, dataRe)
@@ -103,8 +103,6 @@ func replaceContent(mark model.Mark, content model.Content, item string) string 
 	return item
 }
 
-// 删除标记
-// delete mark string
 func deleteDataReMark(item string, dataRe string) string {
 	item = strings.Replace(item, fmt.Sprintf(`data-re="%s"`, html.EscapeString(dataRe)), "", 1)
 	item = strings.Replace(item, fmt.Sprintf(`data-re='%s'`, html.EscapeString(dataRe)), "", 1)
@@ -163,8 +161,8 @@ func getContentUseContentIdAndMarkKey(contentId int64, mark model.Mark) []model.
 		return contents
 	}
 
-	err := db.DB.Debug().Limit(pageSize).Offset(utlis.Paginate(page, pageSize)).
-		Table(model.ConnectionTableName).Where("content_id = ? AND connection_content_type = ?", contentId, mark.Key).Joins("left join contents on contents.id=connections.connection_content_id").
+	err := db.DB.Limit(pageSize).Offset(utlis.Paginate(page, pageSize)).
+		Table(model.ContentTableName).Joins("left join connections on contents.id=connections.connection_content_id").Where("connections.content_id = ? AND connections.connection_content_type = ?", contentId, mark.Key).
 		Order("created_at DESC").Find(&contents).Error
 	if err == gorm.ErrRecordNotFound {
 	}
@@ -224,6 +222,12 @@ func replaceHtmlContentFormMark(node *html.Node, contentId int64, mark model.Mar
 				continue
 			}
 
+			var b bytes.Buffer
+			err := html.Render(&b, node)
+			if err != nil {
+				continue
+			}
+
 			dataRe := attr.Val
 			localMark, err := utlis.GetMarksFrom(dataRe, "")
 			if err != nil {
@@ -234,10 +238,17 @@ func replaceHtmlContentFormMark(node *html.Node, contentId int64, mark model.Mar
 				continue
 			}
 
-			// 现在通过contentID和扩展信息来查询需要替换的内容
+			var replace []string
 			contents := getContentUseContentIdAndMarkKey(contentId, localMark)
 			for _, content := range contents {
-				log.Println(content)
+				divContent := b.String()
+				fmt.Println("获取")
+				item := replaceContent(localMark, content, divContent)
+				replace = append(replace, item)
+				log.Println(item)
+			}
+			if len(replace) > 0 {
+				*result = strings.Replace(*result, b.String(), strings.Join(replace, "\n"), -1)
 			}
 		}
 	}
