@@ -95,7 +95,7 @@
                                         <td>{{row.content.updated_at}}</td>
                                         <td>
                                             <div class="btn-group d-none d-sm-inline-block">
-                                                <button @click="()=>editRow(row_index,index,form.mark.mark_section,form.mark.mark_env)"
+                                                <button @click="()=>editRow(row_index,index,form.mark.backend_section,form.mark.backend_env)"
                                                         type="button"
                                                         class="btn btn-soft-info btn-sm">编辑
                                                 </button>
@@ -146,7 +146,7 @@
                                                 placeholder="下拉框选择"
                                                 label="title" track-by="id"
                                                 @remove="deleteOption"
-                                                :options="getAllSelectOptionsBy(connection.mark_section + '/' + connection.mark_env)"
+                                                :options="getAllSelectOptionsBy(connection.backend_section + '/' + connection.backend_env)"
                                                 :multiple="true"
                                                 :taggable="true"
                                         ></multiselect>
@@ -159,13 +159,13 @@
                                         <file-pond :imagePreviewMaxHeight="50"
                                                    credits=""
                                                    label-idle="拖拽或者复制文件上传..." allow-multiple="true"
-                                                   :server="server(connection.mark_section + '/' + connection.mark_env,index,connection.key,connection.key)"
+                                                   :server="server(connection.backend_section + '/' + connection.backend_env,index,connection.key,connection.key)"
                                                    instantUpload="false"/>
                                         </file-pond>
                                         <div class="card-body">
                                             <div class="row gutters" v-if="modelShow">
-                                                <div v-for="(file,index) in getContentThumbnailBy(form.submit.content.id, connection.mark_section + '/' + connection.mark_env)"
-                                                     class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
+                                                <div v-for="(file,index) in getContentThumbnailBy(form.submit.content.id, connection.backend_section + '/' + connection.backend_env)"
+                                                     class="col-xl-1 col-lg-1 col-md-1 col-sm-1 col-1">
                                                     <img class="thumbs"
                                                          :src="getImgUrl(file.source)">
                                                     <button class="btn btn-danger"
@@ -189,8 +189,6 @@
                                 </quill-editor>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
@@ -286,7 +284,7 @@
                     return []
                 } else {
                     let xhr = new XMLHttpRequest();
-                    xhr.open("GET", "/api/content/" + id + "/" + key + "/attachments", false);
+                    xhr.open("GET", "/api/content/" + key + "/" + id + "/attachments", false);
                     xhr.send(key);
                     let data = xhr.responseText;
                     return JSON.parse(data)
@@ -303,12 +301,14 @@
         mounted() {
         },
         methods: {
-            editRow(content_index, env_index, mark_section, mark_env) {
-                this.template.forms[mark_section][env_index]['submit']['connections'] = this.template['rows'][mark_section + "#" + mark_env][content_index]['connections']
-                Object.keys(this.template['rows'][mark_section + "#" + mark_env][content_index]['content']).forEach(index => {
-                    let value = this.template['rows'][mark_section + "#" + mark_env][content_index]['content'][index]
+            editRow(content_index, env_index, backend_section, backend_env) {
+                console.log(content_index, env_index)
+                console.log(this.template.forms, backend_section)
+                this.template.forms[backend_section][env_index]['submit']['connections'] = this.template['rows'][backend_section + "#" + backend_env][content_index]['connections']
+                Object.keys(this.template['rows'][backend_section + "#" + backend_env][content_index]['content']).forEach(index => {
+                    let value = this.template['rows'][backend_section + "#" + backend_env][content_index]['content'][index]
                     if (value && value !== "" && value !== null) {
-                        this.template.forms[mark_section][env_index]['submit']['content'][index] = value
+                        this.template.forms[backend_section][env_index]['submit']['content'][index] = value
                     }
                 })
 

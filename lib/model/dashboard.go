@@ -14,7 +14,7 @@ type Row struct {
 }
 
 type Relationship struct {
-	Relation    Relation  `json:"relation"`
+	Relation    Mark      `json:"relation"`
 	Connections []Content `json:"connections"`
 }
 

@@ -2,6 +2,8 @@ package model
 
 import "time"
 
+var ContentTableName = "contents"
+
 type Content struct {
 	ID        int64      `gorm:"primary_key;AUTO_INCREMENT" json:"id"`        // 内容id
 	CreatedAt time.Time  `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"` // 内容创建时间
@@ -21,5 +23,5 @@ type Content struct {
 }
 
 func (content *Content) TableName() string {
-	return "contents"
+	return ContentTableName
 }

@@ -75,10 +75,10 @@ func init() {
 
 // 确定最后一个目录
 func EnsureDir(dirName string) error {
-	err := os.Mkdir(dirName, os.ModeDir)
-	if err == nil || os.IsExist(err) {
+	err := os.Mkdir(dirName, 0777)
+	if os.IsExist(err) {
 		return nil
-	} else {
-		return err
 	}
+
+	return os.Chmod(dirName, 0777)
 }

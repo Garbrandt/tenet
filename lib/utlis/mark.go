@@ -98,7 +98,7 @@ func GetMarksFrom(dataRe string, link string) (model.Mark, error) {
 
 	for _, value := range markQuery["connections"] {
 		keys := strings.Split(value, "#")
-		mark.Relations = append(mark.Relations, model.Relation{
+		mark.Relations = append(mark.Relations, model.Mark{
 			Type:    keys[0],
 			Section: keys[1],
 			Env:     keys[2],

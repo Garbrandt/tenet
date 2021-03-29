@@ -16,7 +16,7 @@ func (s *Server) initializeRoutes() {
 
 		api.GET("/dashboard", AnalyticsMiddleware(), s.GetDashboard)
 
-		api.GET("/content/:id/:section/:env/attachments", s.GetContentAttachments)
+		api.GET("/content/:section/:env/:id/attachments", s.GetContentAttachments)
 		api.POST("/contents", s.CreateContent)
 		api.DELETE("/contents/:id", s.DeleteContent)
 

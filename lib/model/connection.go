@@ -1,5 +1,7 @@
 package model
 
+var ConnectionTableName = "connections"
+
 type Connection struct {
 	Content
 
@@ -10,5 +12,5 @@ type Connection struct {
 }
 
 func (content *Connection) TableName() string {
-	return "connections"
+	return ConnectionTableName
 }
