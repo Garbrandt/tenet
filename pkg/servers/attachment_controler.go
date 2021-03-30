@@ -3,17 +3,17 @@ package servers
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/Garbrandt/tenet/pkg/config"
 	"github.com/gin-gonic/gin"
 	"github.com/h2non/filetype"
 	"github.com/jinzhu/gorm"
 	uuid "github.com/satori/go.uuid"
 	"io/ioutil"
-	"tenet/lib/config"
 
+	"github.com/Garbrandt/tenet/pkg/model"
 	"net/http"
 	"os"
 	"path/filepath"
-	"tenet/lib/model"
 )
 
 func (s *Server) UploadAttachments(c *gin.Context) {

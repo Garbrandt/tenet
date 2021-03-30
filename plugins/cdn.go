@@ -2,9 +2,9 @@ package plugins
 
 import (
 	"fmt"
+	"github.com/Garbrandt/tenet/pkg/config"
 	"github.com/gin-gonic/gin"
 	"strings"
-	"tenet/lib/config"
 )
 
 var ReplaceStyle = []string{`'%s'`, `"%s"`,`(%s)`}

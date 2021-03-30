@@ -2,13 +2,13 @@ package servers
 
 import (
 	"fmt"
+	"github.com/Garbrandt/tenet/pkg/config"
+	"github.com/Garbrandt/tenet/pkg/db"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	"log"
 	"net/http"
-	"tenet/lib/config"
-	"tenet/lib/db"
 	"time"
 )
 

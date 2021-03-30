@@ -3,6 +3,7 @@ package plugins
 import (
 	"bytes"
 	"fmt"
+	"github.com/Garbrandt/tenet/pkg/config"
 	"github.com/gin-gonic/gin"
 	"image"
 	"image/color"
@@ -12,7 +13,6 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
-	"tenet/lib/config"
 
 	"github.com/golang/freetype"
 	"golang.org/x/image/font"

@@ -6,8 +6,8 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 	"log"
 
-	"tenet/lib/config"
-	"tenet/lib/model"
+	"github.com/Garbrandt/tenet/pkg/config"
+	"github.com/Garbrandt/tenet/pkg/model"
 )
 
 var DB *gorm.DB

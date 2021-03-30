@@ -4,13 +4,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/Garbrandt/tenet/pkg/model"
 	"github.com/joncalhoun/qson"
 	"golang.org/x/net/html"
 	"log"
 	"net/url"
 	"strconv"
 	"strings"
-	"tenet/lib/model"
 )
 
 func GetMarksForm(content []byte) (marks []model.Mark) {

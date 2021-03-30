@@ -1,10 +1,10 @@
 package servers
 
 import (
+	"github.com/Garbrandt/tenet/pkg/config"
+	"github.com/Garbrandt/tenet/plugins"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"tenet/lib/config"
-	"tenet/plugins"
 )
 
 func Interpreter(c *gin.Context) {

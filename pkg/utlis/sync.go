@@ -4,12 +4,12 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"github.com/Garbrandt/tenet/pkg/config"
 	"github.com/google/go-github/github"
 	"golang.org/x/oauth2"
 	"io"
 	"net/http"
 	"os"
-	"tenet/lib/config"
 )
 
 func SyncFormLocal(path string, remote string) (bool, error) {

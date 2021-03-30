@@ -2,10 +2,10 @@ package servers
 
 import (
 	"encoding/json"
+	"github.com/Garbrandt/tenet/pkg/config"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"tenet/lib/config"
 	"time"
 )
 

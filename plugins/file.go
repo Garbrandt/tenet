@@ -2,14 +2,14 @@ package plugins
 
 import (
 	"fmt"
+	"github.com/Garbrandt/tenet/pkg/config"
+	"github.com/Garbrandt/tenet/pkg/utlis"
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/url"
 	"path"
 	"path/filepath"
 	"strings"
-	"tenet/lib/config"
-	"tenet/lib/utlis"
 )
 
 var NeedSync []string

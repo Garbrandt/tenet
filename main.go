@@ -1,7 +1,7 @@
 package main
 
 import (
-	"tenet/lib/servers"
+	"github.com/Garbrandt/tenet/pkg/servers"
 )
 
 func main() {

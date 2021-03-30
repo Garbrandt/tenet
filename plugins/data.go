@@ -3,6 +3,9 @@ package plugins
 import (
 	"bytes"
 	"fmt"
+	"github.com/Garbrandt/tenet/pkg/db"
+	"github.com/Garbrandt/tenet/pkg/model"
+	"github.com/Garbrandt/tenet/pkg/utlis"
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	"golang.org/x/net/html"
@@ -10,9 +13,6 @@ import (
 	"reflect"
 	"strconv"
 	"strings"
-	"tenet/lib/db"
-	"tenet/lib/model"
-	"tenet/lib/utlis"
 	"time"
 )
 

@@ -3,10 +3,10 @@ package servers
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/Garbrandt/tenet/pkg/model"
 	"github.com/gin-gonic/gin"
 	"io/ioutil"
 	"net/http"
-	"tenet/lib/model"
 )
 
 func (s *Server) DeleteContent(c *gin.Context) {

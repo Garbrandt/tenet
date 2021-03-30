@@ -1,4 +1,4 @@
-module tenet
+module github.com/Garbrandt/tenet
 
 go 1.14
 

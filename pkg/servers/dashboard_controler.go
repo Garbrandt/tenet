@@ -1,12 +1,12 @@
 package servers
 
 import (
+	"github.com/Garbrandt/tenet/pkg/config"
+	"github.com/Garbrandt/tenet/pkg/model"
+	"github.com/Garbrandt/tenet/pkg/utlis"
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	"net/http"
-	"tenet/lib/config"
-	"tenet/lib/model"
-	"tenet/lib/utlis"
 )
 
 func getMarksFrom(path string) []model.Mark {
