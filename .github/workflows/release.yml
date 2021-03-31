@@ -1,5 +1,8 @@
 name: Release
-on: [push]
+on:
+  create:
+    tags:
+      - v*
 jobs:
   release:
     name: Release on GitHub
@@ -20,4 +23,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GO_RELEASER_GITHUB_TOKEN }}
         with:
-          args: release --snapshot --rm-dist
+          args: release --rm-dist
