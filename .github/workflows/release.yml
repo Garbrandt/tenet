@@ -1,21 +1,21 @@
 name: release
 on: [push]
 jobs:
-  goreleaser:
+  release:
+    name: Release on GitHub
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Check out code
         uses: actions/checkout@v1
+
+      - name: Validates GO releaser config
+        uses: docker://goreleaser/goreleaser:latest
         with:
-          fetch-depth: 1
-      - name: Setup Go
-        uses: actions/setup-go@v1
+          args: check
+
+      - name: Create release on GitHub
+        uses: docker://goreleaser/goreleaser:latest
         with:
-          go-version: 1.13
-      - name: Run GoReleaser
-        uses: goreleaser/goreleaser-action@v1
-        with:
-          version: latest
-          args: release --rm-dist
+          args: release
         env:
-          GITHUB_TOKEN: ${{ secrets.GO_RELEASER_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{secrets.GO_RELEASER_GITHUB_TOKEN }}
