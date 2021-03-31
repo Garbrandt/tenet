@@ -20,6 +20,9 @@ archives:
       windows: Windows
       386: i386
       amd64: x86_64
+    files:
+      - site_template/**/*
+      - config.yml
 checksum:
   name_template: 'checksums.txt'
 snapshot:
@@ -30,6 +33,4 @@ changelog:
     exclude:
       - '^docs:'
       - '^test:'
-files:
-  - site_template/**/*
-  - config.yml
+
