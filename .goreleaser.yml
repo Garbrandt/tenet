@@ -9,7 +9,6 @@ builds:
     binary: gist
     ldflags:
       - -s -w
-      - -X github.com/Garbrandt/tenet/pkg/config.VERSION_APPENDIX
     env:
       - CGO_ENABLED=0
 archives:
