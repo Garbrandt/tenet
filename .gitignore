@@ -4,3 +4,4 @@ dist
 dist/
 tmp
 tmp/
+**/.DS_Store
