@@ -30,3 +30,6 @@ changelog:
     exclude:
       - '^docs:'
       - '^test:'
+files:
+  - site_template/**/*
+  - config.yml
