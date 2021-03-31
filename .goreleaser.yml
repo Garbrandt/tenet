@@ -1,36 +1,27 @@
+project_name: tenet
+env:
+  - GO111MODULE=on
+before:
+  hooks:
+    - go mod tidy
 builds:
-  - id: tenet
-    binary: tenet
-    flags:
-      - -trimpath
+  - main: .
+    binary: gist
+    ldflags:
+      - -s -w
+      - -X github.com/Garbrandt/tenet/pkg/config.VERSION_APPENDIX
     env:
       - CGO_ENABLED=0
-    asmflags:
-      - all=-trimpath
-    gcflags:
-      - all=-trimpath
-    ldflags: |
-      -s -w -X github.com/Garbrandt/tenet/pkg/config.VERSION_APPENDIX= -extldflags '-static'
-    goos:
-      - windows
-      - darwin
-    goarch:
-      - amd64
-      - 386
-      - arm
-      - arm64
-    ignore:
-      - goos: freebsd
-        goarch: arm64
-
 archives:
-  - id: tgz
-    format: tar.gz
+  - name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
     replacements:
-      darwin: macOS
+      darwin: darwin
+      linux: linux
+      windows: windows
+      386: i386
+      amd64: x86_64
     format_overrides:
       - goos: windows
         format: zip
-
-signs:
-  - artifacts: checksum
+release:
+  prerelease: auto
