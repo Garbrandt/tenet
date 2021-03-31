@@ -20,4 +20,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GO_RELEASER_GITHUB_TOKEN }}
         with:
-          args: release --snapshot --rm-dist --release-notes .github/CHANGELOG.md
+          args: release --snapshot --rm-dist
