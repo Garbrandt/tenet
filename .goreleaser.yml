@@ -12,10 +12,7 @@ builds:
     ldflags: |
       -s -w -X github.com/Garbrandt/tenet/pkg/config.VERSION_APPENDIX= -extldflags '-static'
     goos:
-      - linux
       - windows
-      - freebsd
-      - openbsd
       - darwin
     goarch:
       - amd64
