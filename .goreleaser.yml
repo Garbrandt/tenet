@@ -26,3 +26,5 @@ archives:
         format: zip
 release:
   prerelease: auto
+snapshot:
+  name_template: 1.0.0-SNAPSHOT-{{.Commit}}
