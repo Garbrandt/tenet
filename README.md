@@ -12,3 +12,11 @@ If you want to say **thank you** or/and support active development of `TENET`:
 - Write interesting articles about project on [Dev.to](https://dev.to/), [Medium](https://medium.com/) or personal blog.
 
 Together, we can make this project **better** every day! 😘
+
+## Contribution
+
+Please make sure to read the [Contributing Guide](https://github.com/Garbrandt/tenet/blob/dev/.github/CONTRIBUTING.md) before making a pull request. If you have a Vue-related project/component/tool, add it with a pull request to [this curated list](https://github.com/Garbrandt/awesome-tenet)!
+
+Thank you to all the people who already contributed to Vue!
+
+<a href="https://github.com/Garbrandt/tenet/graphs/contributors"><img src="https://opencollective.com/vuejs/contributors.svg?width=890" /></a>
