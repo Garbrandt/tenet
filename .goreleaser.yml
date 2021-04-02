@@ -8,7 +8,7 @@ before:
     - go generate -a -ldflags '-linkmode external -extldflags "-static"' ./...
 builds:
   - env:
-      - CGO_ENABLED=0
+      - CGO_ENABLED=1
     flags:
       - -tags
       - sqlite
