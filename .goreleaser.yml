@@ -51,6 +51,9 @@ archives:
   - format_overrides:
       - goos: 'windows'
         format: 'zip'
+    files:
+      - site_template/**/*
+      - config.yml
 
 checksum:
   name_template: 'checksums.txt'
