@@ -5,7 +5,7 @@ before:
     # You may remove this if you don't use go modules.
     - go mod tidy
     # you may remove this if you don't need go generate
-    - go generate -a -ldflags '-linkmode external -extldflags "-static"' ./...
+    - go generate -ldflags "-s -w" ./...
 builds:
   - env:
       - CGO_ENABLED=1
@@ -26,6 +26,8 @@ archives:
     files:
       - site_template/**/*
       - config.yml
+    env:
+      - CGO_ENABLED=1
 checksum:
   name_template: 'checksums.txt'
 snapshot:
