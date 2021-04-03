@@ -1,27 +1,59 @@
-name: goreleaser
+name: release
 
 on:
-  create:
+  push:
+    branches-ignore:
+      - '**'
     tags:
-      - v*.*.*
-
+      - 'v*.*.*'
 jobs:
-  release:
-    name: Release
+  build:
+    name: Build
     runs-on: ubuntu-latest
-    container:
-      image: bepsays/ci-goreleaser:1.16.0
     steps:
-      -
-        name: Checkout
+      - name: Set up Go 1.x
+        uses: actions/setup-go@v2
+        with:
+          go-version: ^1.15
+        id: go
+
+      - name: Check out code into the Go module directory
         uses: actions/checkout@v2
+
+      - name: Set tag to environment variable
+        run: echo ::set-env name=VCS_REF::${GITHUB_REF#refs/*/}
+
+      - name: Output info to log
+        run: |
+          echo $VCS_REF
+          echo ${{ env.VCS_REF }}
+
+      - name: Compile Client with XGO
+        uses: crazy-max/ghaction-xgo@v1.4.1
         with:
-          fetch-depth: 0
-      -
-        name: Run GoReleaser
-        uses: goreleaser/goreleaser-action@v2
-        with:
-          version: latest
-          args: release --rm-dist
+          xgo_version: latest
+          go_version: latest
+          dest: build
+          targets: linux/*,windows/*,darwin/*
+          prefix: tenet-${{ env.VCS_REF }}
+          v: true
+          x: false
+          buildmode: default
+          ldflags: '-X main.Version=${{ env.VCS_REF }}'
+
+      - name: Zip binaries
+        run: |
+          cd build
+          for file in ./* ; do zip "${file}.zip" "$file" ; done
+          ls -lah
+          readlink -e .
+
+      - name: Upload release to GitHub
+        uses: xresloader/upload-to-github-release@v1.2.0
         env:
           GITHUB_TOKEN: ${{ secrets.GO_RELEASER_GITHUB_TOKEN }}
+        with:
+          file: '*.zip'
+          draft: false
+          tags: true
+          verbose: true
